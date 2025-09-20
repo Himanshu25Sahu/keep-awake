@@ -1,37 +1,30 @@
 name: Keep Render Apps Awake (IST schedule, daily)
 
 on:
-  # Runs every 10 minutes
   schedule:
-    - cron: "*/10 * * * *"
+    # Runs at 08:50 and 08:55 IST daily
+    - cron: "20 2 * * *"   # 08:50 IST → 02:20 UTC
+    - cron: "25 2 * * *"   # 08:55 IST → 02:25 UTC
   workflow_dispatch: # allows manual run
 
 jobs:
   keep-awake:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping health endpoints only during 09:00-19:00 IST
+      - name: Ping health endpoints
         run: |
-          # Get current hour (00-23) in IST
-          HOUR=$(TZ='Asia/Kolkata' date +%H)
-          echo "Current IST hour: $HOUR"
+          echo "Pinging endpoints to wake Render apps..."
 
-          # Only ping during 09:00-19:00 IST
-          if [ "$HOUR" -ge 9 ] && [ "$HOUR" -lt 19 ]; then
-            echo "Within keep-awake window. Pinging endpoints..."
+          # List of endpoints (no commas)
+          endpoints=(
+            "https://townsquare-wenh.onrender.com/health"
+            "https://townsquare-kg8z.onrender.com/health"
+            "https://devsphere-us67.onrender.com/"
+          )
 
-            # List of endpoints (add more URLs if needed)
-            endpoints=(
-              "https://townsquare-wenh.onrender.com/health"
-              # "https://another-project.onrender.com/health" # add more if needed
-            )
-
-            for url in "${endpoints[@]}"; do
-              echo "Pinging $url"
-              # curl: silent, capture HTTP status and time, max-time 25s
-              res=$(curl -s -o /dev/null -w "%{http_code} %{time_total}" --max-time 25 "$url") || res="000 0"
-              echo "$(date -u +"%Y-%m-%d %H:%M:%S UTC") - $url => $res"
-            done
-          else
-            echo "Outside keep-awake window (IST hour $HOUR). Skipping pings."
-          fi
+          for url in "${endpoints[@]}"; do
+            echo "Pinging $url"
+            # curl: silent, capture HTTP status and time, max-time 25s
+            res=$(curl -s -o /dev/null -w "%{http_code} %{time_total}" --max-time 25 "$url") || res="000 0"
+            echo "$(date -u +"%Y-%m-%d %H:%M:%S UTC") - $url => $res"
+          done
