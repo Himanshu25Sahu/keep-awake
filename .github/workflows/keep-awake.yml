@@ -2,9 +2,8 @@ name: Keep Render Apps Awake (IST schedule, daily)
 
 on:
   schedule:
-    # Runs at 08:50 and 08:55 IST daily
-    - cron: "20 2 * * *"   # 08:50 IST → 02:20 UTC
-    - cron: "25 2 * * *"   # 08:55 IST → 02:25 UTC
+    # Runs every 5 min from 08:55 to 09:30 IST daily
+    - cron: "25,30,35,40,45,50,55,0 3 * * *" # 03:25 → 04:00 UTC
   workflow_dispatch: # allows manual run
 
 jobs:
@@ -24,7 +23,6 @@ jobs:
 
           for url in "${endpoints[@]}"; do
             echo "Pinging $url"
-            # curl: silent, capture HTTP status and time, max-time 25s
             res=$(curl -s -o /dev/null -w "%{http_code} %{time_total}" --max-time 25 "$url") || res="000 0"
             echo "$(date -u +"%Y-%m-%d %H:%M:%S UTC") - $url => $res"
           done
