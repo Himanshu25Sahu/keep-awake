@@ -1,1 +1,1 @@
-# This repository is for running cron jobs, to keep my other projects alive , and fix the slow start.
+# I created this repository for pinging requests on my other project's servers to save them from slow start
