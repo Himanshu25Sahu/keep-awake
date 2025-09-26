@@ -23,6 +23,6 @@ jobs:
 
           for url in "${endpoints[@]}"; do
             echo "Pinging $url"
-            res=$(curl -s -o /dev/null -w "%{http_code} %{time_total}" --max-time 25 "$url") || res="000 0"
+            res=$(curl -s -o /dev/null -w "%{http_code} %{time_total}" --max-time 45 "$url") || res="000 0"
             echo "$(date -u +"%Y-%m-%d %H:%M:%S UTC") - $url => $res"
           done
