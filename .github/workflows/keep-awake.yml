@@ -18,7 +18,7 @@ jobs:
           endpoints=(
             "https://think-twice-server.onrender.com/health"
             "https://townsquare-kg8z.onrender.com/health"
-            "https://devsphere-us67.onrender.com/"
+            "https://dev-sphere-server.onrender.com/health"
           )
 
           for url in "${endpoints[@]}"; do
