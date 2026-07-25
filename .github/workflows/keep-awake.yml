@@ -2,10 +2,17 @@ name: Keep Render Apps Awake (IST schedule, daily)
 
 on:
   schedule:
-    # Runs every 5 min from 08:55 to 09:30 IST daily
-    - cron: "30-59/5 2 * * *"  # 08:00–08:29 IST
-    - cron: "0-30/5 3 * * *"   # 08:30–09:30 IST
+    # 08:00–08:20 IST
+    - cron: "30-50/10 2 * * *"
 
+    # 08:30–09:50 IST
+    - cron: "0-50/10 3 * * *"
+
+    # 10:00–10:50 IST
+    - cron: "0-50/10 4 * * *"
+
+    # 11:00 IST
+    - cron: "0 5 * * *"
   workflow_dispatch: # allows manual run
 
 jobs:
