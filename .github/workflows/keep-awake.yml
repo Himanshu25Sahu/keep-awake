@@ -25,12 +25,12 @@ jobs:
 
           # List of endpoints (no commas)
           endpoints=(
-            "https://tt-gateway.onrender.com/api/keepalive"
+            "https://think-twice-gateway.onrender.com/api/keepalive"
             "https://townsquare-kg8z.onrender.com/health"
             "https://tt-org-n09a.onrender.com/health"
             "https://tt-gateway-qs7u.onrender.com/health"
-            "https://tt-entry.onrender.com/health"
-            "https://tt-auth-1k43.onrender.com/health"
+            "https://think-twice-entry.onrender.com/health"
+            "https://think-twice-auth.onrender.com/health"
           )
 
           for url in "${endpoints[@]}"; do
