@@ -31,6 +31,7 @@ jobs:
             "https://tt-gateway-qs7u.onrender.com/health"
             "https://think-twice-entry.onrender.com/health"
             "https://think-twice-auth.onrender.com/health"
+            "https://tt-ai-service.onrender.com/health"
           )
 
           for url in "${endpoints[@]}"; do
